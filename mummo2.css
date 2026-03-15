@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8; /* Toza oqish fon */
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Blur dog'lar */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.blob {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(0, 102, 255, 0.3); /* Ko'k rang */
+    filter: blur(80px);
+    border-radius: 50%;
+    z-index: -2;
+    animation: move 20s infinite alternate;
+}
+
+.blob-1 { top: -100px; left: -100px; background: rgba(0, 153, 255, 0.4); }
+.blob-2 { bottom: -150px; right: -50px; background: rgba(102, 204, 255, 0.3); animation-duration: 25s; }
+.blob-3 { top: 40%; left: 30%; width: 250px; height: 250px; background: rgba(0, 81, 255, 0.2); }
+
+@keyframes move {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(100px, 50px) scale(1.2); }
+}
+
+/* Kodlar uchun canvas */
+#codeCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.15; /* Kodlar juda qora bo'lib qolmasligi uchun */
+}
+
+.content {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px); /* Shisha effekti */
+    padding: 2rem 4rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    color: #1a3a5a;
+}

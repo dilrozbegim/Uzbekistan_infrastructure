@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+    <title>Mask Movie Game - Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #2c3e50 url('bahor.jpg') center/cover no-repeat fixed;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            height:auto;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            width: 100%;           /* Telefonlarda ekran bo'ylab yoyiladi */
+            max-width: 1140px;  
+        }
+
+        .home-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .home-btn-fixed {
+            background: rgba(231, 76, 60, 0.8);
+            color: white;
+            border: 2px solid #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .home-btn-fixed:hover {
+            background: #e74c3c;
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .title {
+            font-family: 'Silkscreen', cursive;
+            font-size: 3em;
+            color: #f1c40f;
+            margin: 20px 0;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px #000;
+            letter-spacing: 5px;
+        }
+
+        #info {
+            margin-bottom: 25px;
+            padding: 10px 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50px;
+            font-size: 1.3em;
+            border: 2px solid #f1c40f;
+            backdrop-filter: blur(5px);
+        }
+
+        #game {
+            display: grid;
+            gap: 15px;
+            width: fit-content;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 115px; 
+            height: 155px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.flipped { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .card-back {
+            background: #34495e url('gul.jpg') center/cover no-repeat;
+            border: 2px solid #ecf0f1;
+        }
+
+        .card-front {
+            background: #fff;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #f1c40f;
+            overflow: hidden;
+        }
+
+        .card-front img { width: 85%; height: 85%; object-fit: contain; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2c3e50, #000);
+            padding: 40px;
+            border: 3px solid #f1c40f;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 400px;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            font-family: 'Silkscreen';
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .modal-btn {
+            background: #f1c40f;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            font-family: 'Silkscreen';
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .modal-btn:hover { transform: scale(1.1); background: #fff; }
+        
+        .btn-red { background: #e74c3c !important; color: white !important; }
+        .btn-gray { background: #95a5a6 !important; color: white !important; }
+
+        .bomb-flash .card-front { animation: flash 0.4s infinite; }
+        @keyframes flash { 50% { background-color: #e74c3c; } }
+
+        @media (max-width: 600px) {
+            .card { width: 75px; height: 105px; }
+            .title { font-size: 1.8em; }
+            .home-btn-fixed { width: 45px; height: 45px; top: 10px; left: 10px; }
+        }
+
+        .settings-panel {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid #f1c40f;
+            z-index: 101;
+            text-align: left;
+            min-width: 220px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.2);
+        }
+
+        .setting-item {
+            margin: 15px 0;
+            font-family: 'Silkscreen', cursive;
+            font-size: 14px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #langSelect, .toggle-btn-small {
+            background: #f1c40f;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-family: 'Silkscreen';
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        #langSelect:hover, .toggle-btn-small:hover {
+            transform: scale(1.05);
+            background: #fff;
+        }
+
+        .settings-btn-fixed {
+            position: fixed;
+            top: 20px;
+            left: 85px; 
+            z-index: 100;
+            background: rgba(52, 152, 219, 0.8);
+        }
+
+#bomb-info {
+    background: rgba(231, 76, 60, 0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+    border: 1px solid #e74c3c;
+    margin-left: 5px;
+    transition: 0.3s;
+}
+    </style>
+</head>
+<body>
+
+    <div class="home-container">
+        <button class="home-btn-fixed" onclick="goHome()">🏠</button>
+    </div>
+
+    <div class="title">Mask Movie Game</div>
+    
+    <div id="info">
+        Level: <span id="level">1</span> | 
+        Vaqt: <span id="timer">25</span>s | 
+        Jon: <span id="lives">6</span>
+<span id="bomb-info" style="color: #e74c3c; display: none;">💣: <span id="bombsCount">0</span></span>
+    </div>
+
+    <div id="game"></div>
+
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="color: #f1c40f;">G'ALABA!</h2>
+            <p id="modalMsg">Keyingi bosqichga tayyormisiz?</p>
+            <div class="btn-group">
+                <button class="modal-btn" id="modalBtn">DAVOM ETISH</button>
+                <button class="modal-btn btn-red" onclick="handleMenuClick()">MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content" style="border-color: #e74c3c;">
+            <h2 style="color: #e74c3c;">DIQQAT!</h2>
+            <p>Haqiqatan ham o'yinni boshidan boshlamoqchimisiz?</p>
+            <div class="btn-group">
+                <button class="modal-btn btn-red" id="confirmYes">HA</button>
+                <button class="modal-btn btn-gray" id="confirmNo">YO'Q</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop src="gamemus.mp3"></audio>
+    <audio id="clickSound" src="click.mp3"></audio>
+    <audio id="nextLevelSound" src="nextlevel.mp3"></audio>
+    <audio id="gameOverSound" src="gameover.mp3"></audio>
+    <audio id="bombSound" src="bomb.mp3"></audio>
+
+    <button class="home-btn-fixed settings-btn-fixed" onclick="toggleSettings()">⚙️</button>
+
+    <div class="settings-panel" id="settingsPanel">
+        <div class="setting-item">
+            <span id="labelLang">Language</span>
+            <select id="langSelect" onchange="changeLang(this.value)">
+                <option value="uz">UZB</option>
+                <option value="ru">RUS</option>
+                <option value="en">ENG</option>
+            </select>
+        </div>
+        <div class="setting-item">
+            <span id="labelMusic">Music</span>
+            <button class="toggle-btn-small" id="musicBtn" onclick="toggleMusic()">ON</button>
+        </div>
+        <div class="setting-item">
+            <span id="labelSFX">Sounds</span>
+            <button class="toggle-btn-small" id="sfxBtn" onclick="toggleSFX()">ON</button>
+        </div>
+    </div>
+
+<script>
+    // --- O'YIN SOZLAMALARI ---
+    const levelSettings = {
+        1: { cards: 6, cols: 3, bombs: 0 },
+        2: { cards: 8, cols: 4, bombs: 0 },
+        3: { cards: 8, cols: 4, bombs: 0 },
+        4: { cards: 10, cols: 5, bombs: 2 },
+        5: { cards: 12, cols: 6, bombs: 2 },
+        6: { cards: 14, cols: 7, bombs: 2 },
+        7: { cards: 16, cols: 8, bombs: 2 },
+        8: { cards: 16, cols: 8, bombs: 4 },
+        9: { cards: 18, cols: 9, bombs: 4 },
+        10: { cards: 20, cols: 10, bombs: 4 }
+    };
+
+    const images = ['maska1.jpg', 'maska2.jpg', 'maska3.jpg', 'maska4.jpg', 'maska5.jpg', 'maska6.jpg', 'maska7.jpg', 'maska8.jpg'];
+    let level = 1, lives = 6, timer = 25, interval, flippedCards = [], matchedCount = 0, isGameActive = true;
+    let currentLang = 'uz';
+    let musicOn = true;
+    let sfxOn = true;
+
+    const translations = {
+        uz: { lang: "Til", music: "Musiqa", sfx: "Ovozlar", level: "Bosqich", time: "Vaqt", lives: "Jon",bombs: "Bombalar", win: "G'ALABA!", next: "DAVOM ETISH" },
+        ru: { lang: "Язык", music: "Музыка", sfx: "Звуки", level: "Уровень", time: "Время", lives: "Жизни",bombs: "Бомба", win: "ПОБЕДА!", next: "ДАЛЕЕ" },
+        en: { lang: "Language", music: "Music", sfx: "Sounds", level: "Level", time: "Time", lives: "Lives",bombs: "Bombs", win: "VICTORY!", next: "CONTINUE" }
+    };
+
+    // --- ASOSIY FUNKSIYALAR ---
+
+ function startLevel() {
+    const game = document.getElementById('game');
+    game.innerHTML = '';
+    flippedCards = [];
+    matchedCount = 0;
+
+    // Bosqich sozlamalarini olish
+    let currentSet = levelSettings[level] || levelSettings[10];
+    game.style.gridTemplateColumns = `repeat(${currentSet.cols}, 1fr)`;
+
+    // --- BOMBA INDIKATORINI BOSHQARISH (QO'SHILDI) ---
+    const bombInfo = document.getElementById('bomb-info');
+    const bombsCountDisplay = document.getElementById('bombsCount');
+    
+    if (bombInfo && bombsCountDisplay) {
+        if (currentSet.bombs > 0) {
+            bombInfo.style.display = 'inline'; // 4-leveldan boshlab ko'rinadi
+            bombsCountDisplay.textContent = currentSet.bombs;
+        } else {
+            bombInfo.style.display = 'none'; // 1-3 levellarda ko'rinmaydi
+        }
+    }
+    // -----------------------------------------------
+
+    let pairCount = Math.floor((currentSet.cards - currentSet.bombs) / 2);
+    let cardsData = [];
+
+    // Juft rasmlarni qo'shish
+    for (let i = 0; i < pairCount; i++) {
+        let img = images[i % images.length];
+        cardsData.push({type: 'normal', img}, {type: 'normal', img});
+    }
+
+    // Bosqichdagi bombalarni qo'shish
+    for (let i = 0; i < currentSet.bombs; i++) {
+        cardsData.push({type: 'bomb', img: 'bomba.jpg'});
+    }
+
+    // Kartalar soni to'liq bo'lmasa, qolganini bomba bilan to'ldirish
+    while (cardsData.length < currentSet.cards) {
+        cardsData.push({type: 'bomb', img: 'bomba.jpg'});
+    }
+
+    // Kartalarni aralashtirish
+    cardsData.sort(() => Math.random() - 0.5);
+
+    // Kartalarni yaratish va DOMga qo'shish
+    cardsData.forEach(data => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.type = data.type;
+        card.innerHTML = `
+            <div class="card-back"></div>
+            <div class="card-front"><img src="${data.img}"></div>
+        `;
+        card.addEventListener('click', flipCard);
+        game.appendChild(card);
+    });
+
+    // Taymerni sozlash
+    timer = 20 + (level * 2);
+    document.getElementById('timer').textContent = timer;
+    startTimer();
+}
+
+    function flipCard() {
+        if (!isGameActive || flippedCards.length === 2 || this.classList.contains('flipped')) return;
+
+        // --- BOMBA MANTIQI SHU YERDA ---
+        if (this.dataset.type === 'bomb') {
+            // 1. Bomba ovozi
+            if (sfxOn) {
+                const bSound = document.getElementById('bombSound');
+                bSound.currentTime = 0;
+                bSound.play();
+            }
+
+            // 2. Ekran titrashi (shake effect)
+            document.body.style.animation = "shake 0.5s";
+            setTimeout(() => document.body.style.animation = "", 500);
+
+            lives--;
+            document.getElementById('lives').textContent = lives;
+            this.classList.add('flipped', 'bomb-flash');
+
+            if (lives <= 0) {
+                setTimeout(() => {
+                    showModal('O\'YIN TUGADI', 'Jonlaringiz qolmadi!', 'QAYTADAN BOSHLASH', resetGame);
+                }, 500);
+            } else {
+                // Agar joni bo'lsa, bomba kartasini birozdan keyin yopish
+                setTimeout(() => {
+                    this.classList.remove('flipped', 'bomb-flash');
+                }, 1000);
+            }
+            return; 
+        }
+
+        // Oddiy karta ochilgandagi ovoz
+        if (sfxOn) {
+            const click = document.getElementById('clickSound');
+            click.currentTime = 0;
+            click.play();
+        }
+
+        this.classList.add('flipped');
+        flippedCards.push(this);
+
+        if (flippedCards.length === 2) {
+            const img1 = flippedCards[0].querySelector('img').src;
+            const img2 = flippedCards[1].querySelector('img').src;
+            
+            if (img1 === img2 && flippedCards[0].dataset.type === 'normal' && flippedCards[1].dataset.type === 'normal') {
+                matchedCount += 2;
+                flippedCards = [];
+                checkWin();
+            } else {
+                setTimeout(() => {
+                    flippedCards.forEach(c => c.classList.remove('flipped'));
+                    flippedCards = [];
+                }, 800);
+            }
+        }
+    }
+
+    // CSS uchun titrash animatsiyasini JS orqali qo'shish
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    function checkWin() {
+        const normals = document.querySelectorAll('.card[data-type="normal"]').length;
+        if (matchedCount === normals) {
+            const bgMusic = document.getElementById('bgMusic');
+            const nextSound = document.getElementById('nextLevelSound');
+            
+            if (musicOn) bgMusic.pause();
+            
+            if (sfxOn) {
+                nextSound.currentTime = 0;
+                nextSound.play();
+            }
+
+            setTimeout(() => {
+                const t = translations[currentLang];
+                showModal(t.win, `${level}-bosqichni yutdingiz!`, t.next, () => {
+                    nextSound.pause();
+                    nextSound.currentTime = 0;
+                    if (musicOn) bgMusic.play();
+                    
+                    level++;
+                    document.getElementById('level').textContent = level;
+                    startLevel();
+                });
+            }, 600);
+        }
+    }
+
+    function showModal(title, msg, btnText, callback) {
+        isGameActive = false;
+        clearInterval(interval);
+        
+        const bgMusic = document.getElementById('bgMusic');
+        const gOSound = document.getElementById('gameOverSound');
+        const nLSound = document.getElementById('nextLevelSound');
+        const bSound = document.getElementById('bombSound');
+
+        if (title === 'O\'YIN TUGADI' || title === 'VAQT TUGADI') {
+            if (musicOn) bgMusic.pause();
+            if (sfxOn) {
+                gOSound.currentTime = 0;
+                gOSound.play();
+            }
+        }
+
+        const modal = document.getElementById('gameModal');
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalMsg').textContent = msg;
+        const btn = document.getElementById('modalBtn');
+        btn.textContent = btnText;
+        modal.style.display = 'flex';
+        
+        btn.onclick = () => {
+            modal.style.display = 'none';
+            
+            gOSound.pause(); gOSound.currentTime = 0;
+            nLSound.pause(); nLSound.currentTime = 0;
+            bSound.pause(); bSound.currentTime = 0;
+            
+            if (musicOn) bgMusic.play();
+            
+            isGameActive = true;
+            callback();
+        };
+    }
+
+    function handleMenuClick() {
+        document.getElementById('nextLevelSound').pause();
+        document.getElementById('gameOverSound').pause();
+        document.getElementById('bombSound').pause();
+        window.location.href='index.html';
+    }
+
+    // --- QOLGAN FUNKSIYALAR (toggleMusic, startTimer, va h.k.) O'ZGARISHSIZ QOLADI ---
+    function toggleMusic() {
+        musicOn = !musicOn;
+        const btn = document.getElementById('musicBtn');
+        const audio = document.getElementById('bgMusic');
+        btn.textContent = musicOn ? "ON" : "OFF";
+        musicOn ? audio.play() : audio.pause();
+    }
+
+    function toggleSFX() {
+        sfxOn = !sfxOn;
+        document.getElementById('sfxBtn').textContent = sfxOn ? "ON" : "OFF";
+    }
+
+    function toggleSettings() {
+        const panel = document.getElementById('settingsPanel');
+        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function changeLang(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+        document.getElementById('labelLang').textContent = t.lang;
+        document.getElementById('labelMusic').textContent = t.music;
+        document.getElementById('labelSFX').textContent = t.sfx;
+        
+        document.getElementById('info').innerHTML = `
+            ${t.level}: <span id="level">${level}</span> | 
+            ${t.time}: <span id="timer">${timer}</span>s | 
+            ${t.lives}: <span id="lives">${lives}</span>
+        `;
+    }
+
+    function startTimer() {
+        clearInterval(interval);
+        resumeTimer();
+    }
+
+    function resumeTimer() {
+        clearInterval(interval);
+        interval = setInterval(() => {
+            if(!isGameActive) return;
+            timer--;
+            document.getElementById('timer').textContent = timer;
+            if (timer <= 0) {
+                clearInterval(interval);
+                showModal('VAQT TUGADI', 'Tezroq harakat qiling!', 'QAYTADAN', resetGame);
+            }
+        }, 1000);
+    }
+
+    function resetGame() {
+        level = 1; lives = 6;
+        document.getElementById('level').textContent = level;
+        document.getElementById('lives').textContent = lives;
+        isGameActive = true;
+        startLevel();
+    }
+
+    function goHome() {
+        isGameActive = false;
+        clearInterval(interval);
+        const cModal = document.getElementById('confirmModal');
+        cModal.style.display = 'flex';
+        document.getElementById('confirmYes').onclick = () => window.location.href = 'index.html';
+        document.getElementById('confirmNo').onclick = () => {
+            cModal.style.display = 'none';
+            isGameActive = true;
+            resumeTimer();
+        };
+    }
+
+    window.addEventListener('mousedown', () => {
+        const bgMusic = document.getElementById('bgMusic');
+        if (musicOn && bgMusic.paused) bgMusic.play();
+    }, { once: true });
+
+    startLevel();
+</script>
+</body>
+</html>

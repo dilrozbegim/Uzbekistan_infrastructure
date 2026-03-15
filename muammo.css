@@ -1,0 +1,630 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Bu juda muhim! */
+}
+
+body {
+  min-height: 100vh; /* 130vh juda baland, odatda 100vh yetarli */
+  font-family: 'Spectral', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ichidagi hamma narsani o'rtaga tekislaydi */
+}
+
+.container {
+    width: 100%;           /* Telefonlarda ekran bo'ylab yoyiladi */
+    max-width: 1140px;     /* O'rtacha eng ma'qul kenglik (Bootstrap standarti) */
+    margin: 0 auto;        /* Kompyuterda saytni O'RTADA ushlab turadi */
+    padding: 0 20px;       /* TELEFONDA: Matn chetga yopishib qolmasligi uchun juda muhim */
+    box-sizing: border-box; /* Paddinglar kenglikni buzib yubormasligi uchun */
+}
+
+img {
+    max-width: 100%;       /* Rasmlar ekrandan chiqib ketmaydi */
+    height: auto;
+}
+
+
+.content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-family: 'Spectral', serif;
+  font-size: 3rem;
+
+}
+
+.main {
+  position: relative;
+  z-index: 2;
+  background: white; /* Scroll qilganda video ustiga chiqadigan qism */
+  padding: 100px 20px;
+  color: #2d3436;
+}
+
+
+
+
+
+
+.content h1 {
+    font-family: 'Spectral', serif;
+  font-size: 3rem;
+  color: black;
+    text-align: center;
+    margin-top:-400px;
+
+}
+
+.image-section {
+  position: relative; /* Ichidagi video va matnni ushlab turadi */
+  width: 100%;
+  height: 100vh; /* Har bir bo'lim butun ekranni egallaydi */
+  overflow: hidden; /* Videoni sectiondan chiqib ketishini oldini oladi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Videoni buzmasdan butun maydonni qoplashini ta'minlaydi */
+  z-index: 1; /* Video eng pastki qavatda bo'ladi */
+  margin-top:80px;
+
+}
+
+.content {
+  position: relative;
+  z-index: 2; /* Matn videoning ustida chiqishi shart */
+  color: white;
+  text-align: center;
+}
+
+.back{
+    background-color: #2d3436;
+    height:1000px;
+
+}
+
+.back {
+  height: 600px;
+    background-image:url(osmon.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* Navbar stillari */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute; /* Video ustida turishi uchun */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 28px;
+    color: #0d0202;
+}
+
+.logo span {
+    color: #4c98af; /* Yashil rang urg'u uchun */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.796);
+    font-family: 'Spectral', serif;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #4c98af;
+}
+
+@media screen and (max-width: 768px) {
+    .content h1 {
+        font-size: 2.5rem; /* Telefon uchun kichraytirilgan shrift */
+    }
+    .nav-links {
+        display: none; /* Telefonlarda menyuni vaqtincha yashirib turish (yoki "hamburger" menyu qilish kerak) */
+    }
+    .info h1 {
+        font-size: 32px; /* Katta sarlavhani telefonga moslash */
+    }
+        .nature {
+        background-attachment: scroll; 
+    }
+  }
+
+  .dropdown {
+    position: relative; /* Ichidagi menu unga nisbatan joylashishi uchun */
+}
+
+.dropdown-content {
+    display: none; /* Odatiy holatda ko'rinmaydi */
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1); /* Chiroyli soya */
+    z-index: 1;
+    top: 100%; /* Navbardan pastda joylashishi uchun */
+    left: 0;
+    padding: 10px 0;
+    list-style: none;
+    border-radius: 4px;
+
+}
+
+.dropdown-content li {
+    margin: 0; /* Dropdown ichidagi elementlar surilmasligi uchun */
+}
+
+.dropdown-content li a {
+    color: black;
+    padding: 10px 20px;
+    display: block;
+    font-size: 14px;
+}
+
+/* Sichqoncha ustiga kelganda menyuni ko'rsatish */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f1f1f1;
+    color: #4c98af;
+}
+
+
+
+.neu-button:hover {
+  box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+}
+
+.neu-button:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+}
+
+/* Mavjud .neu-button-container kodingizga shuni qo'shing yoki almashtiring */
+.neu-button-container {
+    display: flex;
+    gap: 5px; /* Tugmalar orasidagi masofa */
+    padding: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    flex-wrap: wrap;
+    overflow: hidden;
+    /* Balandlikni 210px qildim, shunda 2-qator to'liq sig'adi */
+    max-height: 110px; 
+    transition: max-height 0.4s ease-in-out;
+    align-items: flex-start;
+}
+
+/* Konteyner ochilgandagi holat */
+.neu-button-container.expanded {
+    max-height: 1000px; /* Katta qiymat bersangiz hammasi ko'rinadi */
+}
+
+/* "Barchasini ko'rsatish" tugmasi uchun dizayn */
+.show-more-btn {
+    margin: 10px auto;
+    display: block;
+    padding: 10px 25px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 20px;
+  box-shadow: inset 4px 4px 10px #bcbcbc, inset -4px -4px 10px #ffffff;
+    cursor: pointer;
+    color: #4d4d4d;
+    font-weight: bold;
+      background-color: #e0e0e0;
+        transition: all 0.2s ease-in-out;
+          border: 2px solid rgb(206, 206, 206);
+}
+
+.neu-button {
+  background-color: #e0e0e0;
+  border-radius: 50px;
+  box-shadow: inset 4px 4px 10px #bcbcbc, inset -4px -4px 10px #ffffff;
+  color: #4d4d4d;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 15px 20px;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid rgb(206, 206, 206);
+  margin-top: 30px;
+  margin-left: 20px;
+  display: flex;
+}
+
+.show-more-btn:active {
+    box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff;
+}
+
+
+
+
+/* Sarlavha uchun alohida joy */
+.content-header {
+    text-align: center;
+    padding: 20px 10px 20px 20px; /* Tepadan joy tashlaymiz */
+
+}
+
+.content-header h1 {
+    font-family: 'Spectral', serif;
+    font-size: 2.7rem;
+    color: black;
+}
+.content-header h3 {
+    font-size: 24px;
+    line-height: 1.6;
+}
+.content-header h2 {
+    font-family: 'Spectral', serif;
+    font-size: 2.5rem;
+    color: black;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;      /* Gorizontal joylashuv */
+    align-items: center;      /* Vertikal markazlash */
+    justify-content: space-between; 
+    max-width: 1200px;       
+    margin: 40px auto;       
+    padding: 0 40px;
+    gap: 40px; 
+    margin-top: -2px;
+}
+
+.text-content {
+    flex: 1;                  /* Matn qolgan joyni egallaydi */
+    text-align: left;
+}
+
+.text-content p {
+    font-size:20px;
+    line-height: 1.6;
+  font-family: 'Spectral', serif;
+  color:black;
+}
+
+.text-content h3 {
+    font-size: 24px;
+    line-height: 1.6;
+}
+
+.image-content {
+    flex: 1;                  /* Rasm ham teng joy egallaydi */
+    display: flex;
+    justify-content: flex-end; /* Rasmni o'ngroqqa suradi */
+}
+
+.info img {
+    width: 100%;             /* Konteyner kengligida */
+    max-width: 550px;        /* Maksimal kenglik */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Mobil qurilmalar uchun moslashuv */
+@media screen and (max-width: 992px) {
+    .info {
+        flex-direction: column-reverse; /* Telefonda rasm tepaga yoki pastga tushadi */
+        text-align: center;
+    }
+    
+    .text-content {
+        text-align: center;
+    }
+
+    .image-content {
+        justify-content: center;
+    }
+}
+
+.image-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;    /* Rasmlarni bitta ustunga teradi */
+    align-items: flex-end;     /* Rasmlarni o'ng tarafga tekislaydi */
+    gap: 20px;                 /* Rasmlar orasidagi masofa */
+}
+
+.image-content img {
+    width: 100%;               /* Konteyner kengligiga moslashadi */
+    max-width: 500px;          /* Juda katta bo'lib ketmasligi uchun */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Rasm ustiga sichqoncha borganda effekt (ixtiyoriy) */
+.image-content img:hover {
+    transform: scale(1.02);
+}
+
+/* Mobil versiyada rasmlarni o'rtaga olish */
+@media screen and (max-width: 992px) {
+    .image-content {
+        align-items: center;   /* Telefonda rasmlar markazda bo'ladi */
+        width: 100%;
+    }
+}
+
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* Videoning maksimal kengligi */
+    margin: 20px auto; /* Markazga qo'yish */
+    aspect-ratio: 16 / 9; /* Video formati */
+    border-radius: 15px; /* Burchaklarni yumshatish */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soyasi */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+
+.textplace {
+   margin:0 60px;
+    text-align:left;
+}
+
+.textplace p {
+    font-size:20px;
+    line-height: 1.6;
+  font-family: 'Spectral', serif;
+  color:black;
+  max-width: 1150px;
+  width:100%;
+}
+
+.textplace h3 {
+    font-size: 24px;
+    line-height: 1.6;
+}
+.textplace li{
+        font-size:20px;
+    line-height: 1.6;
+  font-family: 'Spectral', serif;
+  color:black;
+  max-width: 1150px;
+  width:100%;
+}
+/* Jadval asosiy stillari */
+.waste-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px    #4c98af;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Sarlavha (Header) stili */
+.waste-table thead {
+    background-color: #4c98af;
+    color: #ffffff;
+    text-align: left;
+}
+
+.waste-table th, 
+.waste-table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* Zebra effekti (qatorlarni ajratish uchun) */
+.waste-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* Sichqoncha ustiga kelganda rang o'zgarishi */
+.waste-table tbody tr:hover {
+    background-color: #e9f5ff;
+    transition: background-color 0.3s ease;
+}
+
+/* Oxirgi qator chegarasini olib tashlash */
+.waste-table tbody tr:last-of-type {
+    border-bottom: 2px solid    #4c98af;
+}
+
+/* Matn stilini biroz kuchaytirish */
+.waste-table td {
+    color: black;
+    font-size: 18px;
+    max-width: 500px;
+    margin: 0 0 10 0
+}
+
+.waste-table th {
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+.photo-content {
+    display: flex;
+    flex-direction: row;       /* Rasmlarni yonma-yon (satr bo'ylab) teradi */
+    justify-content: center;   /* Rasmlarni markazga tekislaydi */
+    align-items: center; 
+    gap: 20px;                 /* Rasmlar orasidagi masofa */
+    padding: 20px;
+}
+
+.photo-content img {
+    /* Ikkita rasm sig'ishi uchun kenglikni taxminan 45-50% qilamiz */
+    width: 48%;                
+    max-width: 500px;          
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.photo-content img:hover {
+    transform: scale(1.05);
+}
+
+/* Mobil versiyada (ekran kichik bo'lganda) rasmlar yana ostma-ost tushishi uchun */
+@media screen and (max-width: 768px) {
+    .photo-content {
+        flex-direction: column; /* Telefonda yana ustun shakliga qaytadi */
+    }
+    
+    .photo-content img {
+        width: 100%;            /* Telefonda rasm to'liq kenglikni egallaydi */
+    }
+}
+
+.line {
+  width: 100%;              /* To'liq qator bo'ylab */
+  height: 1px;              /* Juda ingichka, nafis chiziq */
+  background: linear-gradient(to right, transparent, #000, transparent); /* Ikki cheti yo'qolib ketadigan chiziq */
+  margin-bottom: 20px;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* Videoning maksimal kengligi */
+    margin: 20px auto; /* Markazga qo'yish */
+    aspect-ratio: 16 / 9; /* Video formati */
+    border-radius: 15px; /* Burchaklarni yumshatish */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soyasi */
+}
+
+
+/* Asosiy konteyner */
+.card-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    justify-content: center;
+    flex-wrap: wrap; 
+}
+
+/* Har bir karta dizayni */
+.news-card {
+    /* 4 ta karta bo'lishi uchun: 100% / 4 = 25%. 
+       Gap (oraliq) hisobiga 25% dan biroz kamroq qilib calc ishlatamiz */
+    flex: 1 1 calc(33% - 20px); 
+    min-width: 250px; /* Ekran juda kichrayganda siqilib ketmasligi uchun */
+    max-width: 325px; 
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  
+ }
+
+ .news-card:hover {
+    transform: translateY(-2px); /* Tepaga biroz ko'tariladi */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2); /* Soyasi kuchayadi */
+}
+/* Rasm o'lchami */
+.news-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.stretched-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* Hamma narsadan (rasm va matndan) ustida turishi uchun */
+    cursor: pointer;
+}
+/* Matn qismi */
+.card-content {
+    padding: 15px 20px;
+}
+
+/* Sarlavha stili */
+.card-content h3 {
+    font-size: 1.1rem; /* Xatolik tuzatildi: 1.rem emas */
+    margin: 0 0 10px 0;
+    color: #333;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+/* Hover effekti */
+.news-card:hover {
+    transform: translateY(-5px); /* Karta biroz ko'tariladi */
+}
+
+.news-card:hover h3 {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.imagel-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px; /* Videoning maksimal kengligi */
+    margin: 20px auto; /* Markazga qo'yish */
+    aspect-ratio: 16 / 9; /* Video formati */
+    border-radius: 15px; /* Burchaklarni yumshatish */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soyasi */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

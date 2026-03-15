@@ -1,0 +1,368 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Bu juda muhim! */
+}
+
+body {
+  min-height: 100vh; /* 130vh juda baland, odatda 100vh yetarli */
+  font-family: 'Spectral', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ichidagi hamma narsani o'rtaga tekislaydi */
+}
+
+.container {
+    width: 100%;           /* Telefonlarda ekran bo'ylab yoyiladi */
+    max-width: 1140px;     /* O'rtacha eng ma'qul kenglik (Bootstrap standarti) */
+    margin: 0 auto;        /* Kompyuterda saytni O'RTADA ushlab turadi */
+    padding: 0 20px;       /* TELEFONDA: Matn chetga yopishib qolmasligi uchun juda muhim */
+    box-sizing: border-box; /* Paddinglar kenglikni buzib yubormasligi uchun */
+}
+
+img {
+    max-width: 100%;       /* Rasmlar ekrandan chiqib ketmaydi */
+    height: auto;
+}
+
+#myVideo {
+  position: fixed; /* 'absolute' o'rniga 'fixed' ishlatilsa, video joyida turadi */
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.1); /* Matn yaxshi ko'rinishi uchun videoni biroz xiralashtiramiz */
+}
+
+.content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-family: 'Spectral', serif;
+  font-size: 3rem;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+}
+
+.main {
+  position: relative;
+  z-index: 2;
+  background: white; /* Scroll qilganda video ustiga chiqadigan qism */
+  padding: 100px 20px;
+  color: #2d3436;
+}
+
+.info {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.info h1 {
+    font-family: 'Spectral', serif;
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #2ecc71;
+  text-align: center;
+}
+
+.neu-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  padding: 10px 20px;
+  cursor: pointer;
+  /* Tugma uchun qo'shimcha stil qo'shishingiz mumkin */
+}
+
+/* greenlife.css */
+
+.nature {
+  min-height: 100vh; /* 1600px juda katta, ekran bo'yi bilan ishlagan ma'qul */
+  background-image: url("daraxt.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Rasm qotib turishi uchun (Parallax effekt) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content h1 {
+    font-family: 'Spectral', serif;
+  font-size: 4rem;
+  color: white;
+  text-shadow: 3px 3px 15px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.image-section {
+  position: relative; /* Ichidagi video va matnni ushlab turadi */
+  width: 100%;
+  height: auto; /* Har bir bo'lim butun ekranni egallaydi */
+  overflow: hidden; /* Videoni sectiondan chiqib ketishini oldini oladi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.content {
+  position: relative;
+  z-index: 2; /* Matn videoning ustida chiqishi shart */
+  color: white;
+  text-align: center;
+}
+
+.back{
+    background-color: #2d3436;
+    height:1000px;
+
+}
+
+.back {
+  height: 600px;
+    background-image:url(osmon.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Navbar stillari */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute; /* Video ustida turishi uchun */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+}
+
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 28px;
+    color: #0d0202;
+}
+
+.logo span {
+    color: #4c98af; /* Yashil rang urg'u uchun */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.796);
+    font-family: 'Spectral', serif;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #4c98af;
+}
+
+@media screen and (max-width: 768px) {
+    .content h1 {
+        font-size: 2.5rem; /* Telefon uchun kichraytirilgan shrift */
+    }
+    .nav-links {
+        display: none; /* Telefonlarda menyuni vaqtincha yashirib turish (yoki "hamburger" menyu qilish kerak) */
+    }
+    .info h1 {
+        font-size: 32px; /* Katta sarlavhani telefonga moslash */
+    }
+        .nature {
+        background-attachment: scroll; 
+    }
+  }
+
+  .dropdown {
+    position: relative; /* Ichidagi menu unga nisbatan joylashishi uchun */
+}
+
+.dropdown-content {
+    display: none; /* Odatiy holatda ko'rinmaydi */
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1); /* Chiroyli soya */
+    z-index: 1;
+    top: 100%; /* Navbardan pastda joylashishi uchun */
+    left: 0;
+    padding: 10px 0;
+    list-style: none;
+    border-radius: 4px;
+}
+
+.dropdown-content li {
+    margin: 0; /* Dropdown ichidagi elementlar surilmasligi uchun */
+}
+
+.dropdown-content li a {
+    color: black;
+    padding: 10px 20px;
+    display: block;
+    font-size: 14px;
+}
+
+/* Sichqoncha ustiga kelganda menyuni ko'rsatish */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f1f1f1;
+    color: #4c98af;
+}
+  
+.sectionwhite{
+  width:100%;
+  height:auto;
+  background-color: white;
+
+}
+
+.img-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* To'lqinni joylashtirish */
+.custom-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    z-index: 10; /* Rasmning ustida bo'lishi uchun */
+}
+
+.custom-wave svg {
+    position: relative;
+    display: block;
+    width: 100%;
+    height:20px; /* To'lqin balandligini shu yerda sozlang */
+}
+
+/* To'lqinning pastki qismi bo'sh qolmasligi uchun */
+.sectionwhite {
+    background-color: white;
+    padding: 60px 20px;
+    margin-top: -1px; /* Chiziqcha qolib ketmasligi uchun */
+}
+
+
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  margin-top: 80px;
+  margin-bottom: -10px;
+}
+.site-footer {
+    width: 100%;
+    background-color: #ffffff; /* Toza oq fon */
+    border-top: 1px solid #eaeaea;
+    padding-top: 30px;
+    margin-top: -10px; /* Yuqoridagi rasmdan masofa */
+    position: relative;
+    z-index: 100;
+}
+
+.footer-partners {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.partners-label {
+    font-family: 'Spectral', serif;
+    font-size: 16px;
+    color: #888;
+    margin-bottom: -10px;
+}
+.lenta-wrapper {
+    overflow: hidden;
+    width: 100%;
+    /* Chetlarini xiralashtirish effektini ham qo'shdim, chekkada rasm birdan paydo bo'lmaydi */
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    padding: 20px 0;
+}
+
+.lenta-track {
+    display: flex;
+    width: max-content; /* Ichidagi elementlar kengligiga qarab o'zi moslashadi */
+    gap: 100px;         /* Logolar orasidagi masofa */
+    animation: infiniteScroll 50s linear infinite;
+}
+
+.partner-item a {
+    text-decoration: none; /* Tagidagi chiziqni olib tashlaydi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-item img {
+    height: 60px; 
+    width: auto;
+    cursor: pointer; /* Sichqoncha borsa qo'lcha chiqishi uchun */
+    transition: transform 0.3s ease;
+}
+
+.partner-item img:hover {
+    transform: scale(1.1); /* Bossishdan oldin biroz kattalashadi (interaktivlik) */
+}
+@keyframes infiniteScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Aynan 50% surilsa, ikkinchi nusxa birinchisining o'rnini egallaydi */
+        transform: translateX(-50%);
+    }
+}
+
+
+.footer-bottom {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 30px;
+}
+
+@keyframes footerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
